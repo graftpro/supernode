@@ -1,0 +1,25 @@
+version: '2'
+services:
+
+  graft:
+    restart: always
+    mem_limit: 3gb
+
+    # command: bash
+    # tty: true
+
+    build:
+      context: .
+      dockerfile: Dockerfile.r820
+    environment:
+      LOG_LEVEL: 0
+      NETWORK: ''
+    ports:
+      - '18980:18980' # crypto p2p
+    volumes:
+      - /blockchain/2tb/graft/.graft:/root/.graft
+      - /blockchain/2tb/graft/wallet:/wallet
+    logging:
+      options:
+        max-size: '10m'
+        max-file: '5'

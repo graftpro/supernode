@@ -1,0 +1,23 @@
+version: '2'
+services:
+
+  graft:
+    restart: always
+    mem_limit: 3gb
+    # command: bash
+    # tty: true
+
+    build: .
+    environment:
+      LOG_LEVEL: 0
+      NETWORK: ''
+    ports:
+      - '18980:18980' # crypto p2p
+      - '18690:18690' # supernode
+    volumes:
+      - /data/mainnet/.graft:/root/.graft
+      - /data/mainnet/wallet:/wallet
+    logging:
+      options:
+        max-size: '10m'
+        max-file: '5'

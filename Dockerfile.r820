@@ -1,0 +1,17 @@
+FROM ubuntu:18.04
+
+RUN apt-get update && apt-get install -y wget supervisor libnorm1
+
+WORKDIR /root
+
+RUN wget https://github.com/graft-project/GraftNetwork/releases/download/v1.9.0/GraftNetwork_1.9.0-ubuntu-18.04.x64.tar.gz && \
+  tar -zxvf GraftNetwork_1.9.0-ubuntu-18.04.x64.tar.gz && \
+  mv GraftNetwork_1.9.0-ubuntu-18.04.x64 graftnetwork && \
+  rm GraftNetwork_1.9.0-ubuntu-18.04.x64.tar.gz
+
+VOLUME /root/.graft
+VOLUME /wallet
+
+COPY supervisord.r820.conf /etc/supervisord.conf
+
+CMD /usr/bin/supervisord -c /etc/supervisord.conf
